@@ -2,7 +2,15 @@ var db = require("../utils/connectDB");
 
 module.exports = {
   getListAcc: () => {
-    return db.load("select * from account");
+    return db.load("select * from account where categoryUser = 0 or categoryUser = 1");
+  },
+
+  getListAccTeacher: () => {
+    return db.load("select * from account where categoryUser = 1");
+  },
+
+  getListAccstudent: () => {
+    return db.load("select * from account where categoryUser = 0");
   },
 
   createAcc: account => {
@@ -23,5 +31,19 @@ module.exports = {
 
   getAccById: id => {
     return db.load(`select * from account where userId = '${id}' `);
+  },
+
+  getAddressByUser: idDistrict => {
+    return db.load(`SELECT ct.* FROM district as dt  JOIN city as ct  on dt.cityId = ct.cityId WHERE dt.districtId = "${idDistrict}"`);
+  } ,
+
+  getDistrictByUser: idDistrict => {
+    return db.load(`SELECT dt.* FROM district as dt WHERE dt.districtId = "${idDistrict}"`);
+  }, 
+
+  updateState: state => {
+    return db.update("account", "userId", state);
   }
+
+
 };
