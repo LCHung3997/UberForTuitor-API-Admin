@@ -5,8 +5,36 @@ module.exports = {
     return db.load("select * from account where categoryUser = 0 or categoryUser = 1");
   },
 
+  getAccAdmin: (id) => {
+    return db.load(`select * from account where userId=${id}`);
+  },
+
+  getAccAdminByKeyPass: (keyPass) => {
+    return db.load(`select * from account where keyPass="${keyPass}"`);
+  },
+
   getListAccTeacher: () => {
     return db.load("select * from account where categoryUser = 1");
+  },
+
+  getCountTeacher: () => {
+    return db.load("select COUNT(*) as sumT from account where categoryUser = 1");
+  },
+
+  getListAccTeacherLimit: (limit,offset) => {
+    return db.load(`select * from account where categoryUser = 1 LIMIT ${limit} OFFSET ${offset}`);
+  },
+
+  getCountStudent: () => {
+    return db.load("select COUNT(*) as sumT from account where categoryUser = 0");
+  },
+
+  getListAccStudentLimit: (limit,offset) => {
+    return db.load(`select * from account where categoryUser = 0 LIMIT ${limit} OFFSET ${offset}`);
+  },
+
+  getAccById: (id) => {
+    return db.load(`select * from account where userId = ${id}`);
   },
 
   getListAccstudent: () => {
@@ -30,7 +58,7 @@ module.exports = {
   },
 
   getAccById: id => {
-    return db.load(`select * from account where userId = '${id}' `);
+    return db.load(`SELECT tm.*, ct.name as nameCity FROM (select ac.*, dt.name as nameDistrict, dt.cityId from account as ac JOIN district as dt on ac.districtId = dt.districtId where userId = ${id}) as tm JOIN city as ct ON tm.cityId = ct.cityId `);
   },
 
   getAddressByUser: idDistrict => {

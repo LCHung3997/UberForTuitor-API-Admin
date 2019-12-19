@@ -37,6 +37,8 @@ app.use(function(req, res, next) {
 require("./routes/index")(app);
 require("./routes/account")(app);
 require("./routes/skill")(app);
+require("./routes/contract")(app);
+require("./routes/complaint")(app);
 
 
 module.exports = app;
