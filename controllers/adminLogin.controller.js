@@ -65,7 +65,7 @@ module.exports = {
     db.getAccByEmail(gmail).then(row => {
       if (row.length > 0) {
         var url =
-          "https://uber-for-tuitor-ui-admin.herokuapp.com/update-new-password?email=" +
+          "http://localhost:3000/update-new-password?email=" +
           req.body.gmail +
           "&key=" +
           row[0].keyPass;
@@ -172,6 +172,17 @@ module.exports = {
     // console.log(req.query.keyPass)
     db.getAccAdminByKeyPass(req.query.keyPass).then(result => {
       res.status(200).json(result);
+    })
+  },
+
+  sumAdminTeacherstudent: (req, res) => {
+    Promise.all([
+      db.getSumAdmin(),
+      db.getSumTeacher(),
+      db.getSumstudent(),
+    ]).then(([admin,teacher,student]) => {
+      console.log(admin);
+      res.status(200).json({admin, teacher, student})
     })
   }
 };
