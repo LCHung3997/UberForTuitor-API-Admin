@@ -15,5 +15,5 @@ module.exports = {
           res.status(200).json({numberPages ,limitComplaint, offset,page});
           
         })
-    }
+    },
 }

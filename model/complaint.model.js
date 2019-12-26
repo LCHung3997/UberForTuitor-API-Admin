@@ -6,7 +6,7 @@ module.exports = {
     },
 
     getCountComplaint: () => {
-        return db.load("select COUNT(*) as sumT from skill");
+        return db.load("select COUNT(*) as sumT from complaint");
     },
 
     getComplaintByContract : (contractId) => {
@@ -15,6 +15,6 @@ module.exports = {
 
     updateComplaint: (Complaint) => {
         return db.update("complaint", "id", Complaint);
-    }
+    },
 
 }
